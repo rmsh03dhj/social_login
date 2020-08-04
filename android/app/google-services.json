@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "37218669009",
+    "firebase_url": "https://barahi-8171a.firebaseio.com",
+    "project_id": "barahi-8171a",
+    "storage_bucket": "barahi-8171a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37218669009:android:f44d0a121b548fa891d0f0",
+        "android_client_info": {
+          "package_name": "com.rdhoju.barahi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37218669009-e1676nlnk7cpkjgej3fpdfe834t1141c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rdhoju.barahi",
+            "certificate_hash": "e222f77ed17ef619860afd236ef99f3f9ca5fc1d"
+          }
+        },
+        {
+          "client_id": "37218669009-iup8od9b74ep4fu0d9q1dumatpre5qsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnq6hEN3WYtXmoyUUZ-7WFMF9rwbIbpQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37218669009-iup8od9b74ep4fu0d9q1dumatpre5qsd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
