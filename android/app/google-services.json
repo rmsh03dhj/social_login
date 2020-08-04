@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "37218669009-42gamc35mioi7ltcfn69u1vncfth9u8n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rdhoju.barahi",
+            "certificate_hash": "418ed188f3129e1c1cf349a1b3af60b0ec9daf6b"
+          }
+        },
+        {
           "client_id": "37218669009-e1676nlnk7cpkjgej3fpdfe834t1141c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
