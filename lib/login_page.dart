@@ -42,7 +42,12 @@ class _LoginPage extends State<LoginPage> {
                 height: 30,
               ),
               SizedBox(height: 50),
-              Container(width: 250, child: Text("User Name", style: TextStyle(fontSize: 16),)),
+              Container(
+                  width: 250,
+                  child: Text(
+                    "User Name",
+                    style: TextStyle(fontSize: 16),
+                  )),
               Container(
                 width: 250,
                 child: AutoValidatingTextFormField(
@@ -62,7 +67,12 @@ class _LoginPage extends State<LoginPage> {
                 ),
               ),
               SizedBox(height: 20),
-              Container(width: 250, child: Text("Password", style: TextStyle(fontSize: 16),)),
+              Container(
+                  width: 250,
+                  child: Text(
+                    "Password",
+                    style: TextStyle(fontSize: 16),
+                  )),
               Container(
                 width: 250,
                 child: AutoValidatingTextFormField(
@@ -85,12 +95,13 @@ class _LoginPage extends State<LoginPage> {
                 child: Text(
                   "Sign In",
                 ),
-                onPressed: () async{
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
-                    bool output = await AuthProvider().signInWithEmail(_userNameController.text, _passwordController.text);
-                    if(!output){
+                    bool output = await AuthProvider()
+                        .signInWithEmail(_userNameController.text, _passwordController.text);
+                    if (!output) {
                       print("unsuccessful");
-                    }else{
+                    } else {
                       print("sign in successful");
                     }
                   }
@@ -100,13 +111,26 @@ class _LoginPage extends State<LoginPage> {
                 child: Text(
                   "Log in with Gmail",
                 ),
-                onPressed: () async{
-                    bool output = await AuthProvider().loginWithGoogle();
-                    if(!output){
-                      print("unsuccessful");
-                    }else{
-                      print("sign in successful");
-                    }
+                onPressed: () async {
+                  bool output = await AuthProvider().signInWithGoogle();
+                  if (!output) {
+                    print("unsuccessful");
+                  } else {
+                    print("sign in successful");
+                  }
+                },
+              ),
+              RaisedButton(
+                child: Text(
+                  "Log in with Facebook",
+                ),
+                onPressed: () async {
+                  bool output = await AuthProvider().signInWithFacebook();
+                  if (!output) {
+                    print("unsuccessful");
+                  } else {
+                    print("sign in successful");
+                  }
                 },
               ),
             ],

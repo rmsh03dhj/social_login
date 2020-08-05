@@ -1,55 +1,75 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class AuthProvider{
+class AuthProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn = GoogleSignIn();
+  final FacebookLogin facebookSignIn = new FacebookLogin();
 
-  Future<bool> signInWithEmail(String email, String password) async{
-    try{
+  Future<bool> signInWithEmail(String email, String password) async {
+    try {
       AuthResult result = await _auth.signInWithEmailAndPassword(email: email, password: password);
-      FirebaseUser user  = result.user;
-      if(user != null)
+      FirebaseUser user = result.user;
+      if (user != null)
         return true;
       else
         return false;
-    }catch(e){
+    } catch (e) {
       return false;
     }
   }
 
-  Future<void> logOut() async{
-    try{
+  Future<void> emailSignOut() async {
+    try {
       await _auth.signOut();
-    }catch(e){
+    } catch (e) {
       print("error logging out $e");
     }
-}
+  }
 
   /// faced this issue
   /// PlatformException(sign_in_failed, com.google.android.gms.common.api.ApiException: 10: , null)
   /// solved with the help of
   /// https://stackoverflow.com/questions/54557479/flutter-and-google-sign-in-plugin-platformexceptionsign-in-failed-com-google/54696963#54696963
-  /// answer from KylianMbappe 
-  Future<bool> loginWithGoogle() async{
-    try{
-      GoogleSignIn googleSignIn=GoogleSignIn();
+  /// answer from KylianMbappe
+  Future<bool> signInWithGoogle() async {
+    try {
       GoogleSignInAccount account = await googleSignIn.signIn();
-      if(account == null){
+      if (account == null) {
         return false;
       }
       AuthResult result = await _auth.signInWithCredential(GoogleAuthProvider.getCredential(
           idToken: (await account.authentication).idToken,
-          accessToken: (await account.authentication).accessToken
-      ));
+          accessToken: (await account.authentication).accessToken));
 
-      if(result.user == null){
+      if (result.user == null) {
         return false;
-      }else{
+      } else {
         return true;
       }
-    }catch(e){
+    } catch (e) {
       print(e);
       return false;
     }
-}
+  }
+
+  Future<Null> googleSignOut() async {
+    await googleSignIn.signOut();
+  }
+
+  Future<bool> signInWithFacebook() async {
+    final FacebookLogin facebookSignIn = new FacebookLogin();
+
+    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
+    if (result.status == FacebookLoginStatus.loggedIn) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<Null> facebookSignOut() async {
+    await facebookSignIn.logOut();
+  }
 }
