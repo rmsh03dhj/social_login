@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>37218669009-mho6estv1v3gqinsbi64iqg6o74rnr6m.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.37218669009-mho6estv1v3gqinsbi64iqg6o74rnr6m</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>37218669009-42gamc35mioi7ltcfn69u1vncfth9u8n.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAMItbkikMT2lY1Jz3lXom0roB2NcVjXyA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>37218669009</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.rdhoju.barahi</string>
+	<key>PROJECT_ID</key>
+	<string>barahi-8171a</string>
+	<key>STORAGE_BUCKET</key>
+	<string>barahi-8171a.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:37218669009:ios:737cb2614f0aa30a91d0f0</string>
+	<key>DATABASE_URL</key>
+	<string>https://barahi-8171a.firebaseio.com</string>
+</dict>
+</plist>
