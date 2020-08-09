@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget{
               RaisedButton(
                 child: Text("Logout"),
                 onPressed: () async {
-                  AuthProvider().logOut();
+                  AuthProvider().emailSignOut();
                 },
               ),
             ],

@@ -61,9 +61,16 @@ class AuthProvider {
   Future<bool> signInWithFacebook() async {
     final FacebookLogin facebookSignIn = new FacebookLogin();
 
-    final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-    if (result.status == FacebookLoginStatus.loggedIn) {
-      return true;
+    final FacebookLoginResult facebookLoginResult = await facebookSignIn.logIn(['email']);
+    if (facebookLoginResult.status == FacebookLoginStatus.loggedIn) {
+      AuthCredential credential =
+          FacebookAuthProvider.getCredential(accessToken: facebookLoginResult.accessToken.token);
+      AuthResult authResult = await _auth.signInWithCredential(credential);
+      if (authResult.user == null) {
+        return false;
+      } else {
+        return true;
+      }
     } else {
       return false;
     }
