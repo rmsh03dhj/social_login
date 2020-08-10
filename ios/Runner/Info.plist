@@ -48,10 +48,39 @@
     		<string>Editor</string>
     		<key>CFBundleURLSchemes</key>
     		<array>
-    			<!-- Copied from GoogleService-Info.plist key REVERSED_CLIENT_ID -->
     			<string>com.googleusercontent.apps.37218669009-mho6estv1v3gqinsbi64iqg6o74rnr6m</string>
     		</array>
     	</dict>
+    </array>
+
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+    		<key>CFBundleTypeRole</key>
+    		<string>Editor</string>
+    		<key>CFBundleURLSchemes</key>
+    		<array>
+    			<string>com.googleusercontent.apps.37218669009-mho6estv1v3gqinsbi64iqg6o74rnr6m</string>
+    		</array>
+        </dict>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                <string>fb3130364550380021</string>
+            </array>
+        </dict>
+    </array>
+
+    <key>FacebookAppID</key>
+    <string>3130364550380021</string>
+    <key>FacebookDisplayName</key>
+    <string>Barahi</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>fbapi</string>
+        <string>fb-messenger-share-api</string>
+        <string>fbauth2</string>
+        <string>fbshareextension</string>
     </array>
 </dict>
 </plist>
