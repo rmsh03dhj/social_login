@@ -14,8 +14,12 @@ dependencies:
   google_sign_in: ^4.5.1
   auto_validating_text_field: ^0.1.4
   flutter_facebook_login: ^3.0.0
-  esewa_pnp: ^0.1.0+1
-
+  responsive_builder: ^0.2.0+2
+  flutter_icons: ^1.1.0
+  rxdart:
+  flutter_bloc: ^6.0.5
+  equatable: ^0.2.6
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

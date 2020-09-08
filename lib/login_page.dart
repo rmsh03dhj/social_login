@@ -93,6 +93,22 @@ class _LoginPage extends State<LoginPage> {
               SizedBox(height: 40),
               RaisedButton(
                 child: Text(
+                  "Sign Up",
+                ),
+                onPressed: () async {
+                  if (_formKey.currentState.validate()) {
+                    bool output = await AuthProvider()
+                        .signUpWithEmail(_userNameController.text, _passwordController.text);
+                    if (!output) {
+                      print("unsuccessful");
+                    } else {
+                      print("sign in successful");
+                    }
+                  }
+                },
+              ),
+              RaisedButton(
+                child: Text(
                   "Sign In",
                 ),
                 onPressed: () async {
