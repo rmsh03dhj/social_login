@@ -1,9 +1,9 @@
-import 'package:barahi/OrderBloc.dart';
-import 'package:barahi/bloc_provider.dart';
-import 'package:barahi/model/data_model.dart';
 
+
+import 'package:barahi/bloc/order_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class FastFoodTab extends StatelessWidget {

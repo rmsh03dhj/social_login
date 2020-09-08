@@ -22,7 +22,7 @@ class _TabletScreenState extends State<TabletScreen>
 
   @override
   void initState() {
-    _tabController = new TabController(length: 4, vsync: this);
+    _tabController =  TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -58,19 +58,13 @@ class _TabletScreenState extends State<TabletScreen>
                       ///top banner
                       Container(
                         height: sizingInformation.screenSize.height * 0.25,
-                        child: StreamBuilder<List<OrderedItem>>(
-                            stream: BlocProvider.of<OrderBloc>(context)
-                                .favouriteItems,
-                            builder: (context, snapshot) {
-                              if (snapshot.data == null ||
-                                  snapshot.data.isEmpty) return Container();
-                              return Scrollbar(
+                        child: Scrollbar(
                                 isAlwaysShown: true,
                                 controller: horizontalScrollController,
                                 child: ListView.builder(
                                   controller: horizontalScrollController,
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: snapshot.data.length,
+                                  itemCount: 5,
                                   itemBuilder: (context, index) {
                                     return Card(
                                       child: Container(
@@ -87,19 +81,18 @@ class _TabletScreenState extends State<TabletScreen>
                                         ),
                                         child: Column(children: [
                                           Image.asset(
-                                            snapshot.data[index].image,
+                                            "assets//1.png",
                                             fit: BoxFit.fill,
                                           ),
-                                          Text(snapshot.data[index].name),
-                                          Text(snapshot.data[index].price
-                                              .toString()),
+                                          Text("Chiken Burger"),
+                                          Text("10"),
                                         ]),
                                       ),
                                     );
                                   },
                                 ),
-                              );
-                            }),
+                              ),
+                            
                       ),
 
                       ///middle part
