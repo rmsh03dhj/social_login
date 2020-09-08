@@ -1,6 +1,4 @@
 
-import 'package:barahi/OrderBloc.dart';
-import 'package:barahi/bloc_provider.dart';
 import 'package:barahi/model/data_model.dart';
 import 'package:barahi/screen/pages/tablet/popular_items_tab.dart';
 import 'package:flutter/cupertino.dart';
