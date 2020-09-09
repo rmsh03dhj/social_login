@@ -1,5 +1,4 @@
-
-import 'package:barahi/model/data_model.dart';
+import 'package:barahi/data/repository/product_repository_impl.dart';
 import 'package:barahi/screen/pages/tablet/popular_items_tab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ class _TabletScreenState extends State<TabletScreen>
 
   @override
   void initState() {
-    _tabController =  TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
     super.initState();
   }
 
@@ -59,40 +58,57 @@ class _TabletScreenState extends State<TabletScreen>
                       Container(
                         height: sizingInformation.screenSize.height * 0.25,
                         child: Scrollbar(
-                                isAlwaysShown: true,
-                                controller: horizontalScrollController,
-                                child: ListView.builder(
-                                  controller: horizontalScrollController,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: 5,
-                                  itemBuilder: (context, index) {
-                                    return Card(
-                                      child: Container(
+                          isAlwaysShown: true,
+                          controller: horizontalScrollController,
+                          child: ListView.builder(
+                            controller: horizontalScrollController,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:
+                                ProductRepositoryImpl().getAllProducts().length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: ,
+                                child: Card(
+                                  child: Container(
+                                    height:
+                                        sizingInformation.screenSize.height *
+                                            0.25,
+                                    width: sizingInformation.screenSize.height *
+                                        0.25,
+                                    decoration: new BoxDecoration(
+                                      shape: BoxShape.rectangle,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(16.0)),
+                                    ),
+                                    child: Column(children: [
+                                      Container(
                                         height: sizingInformation
                                                 .screenSize.height *
-                                            0.25,
+                                            0.18,
                                         width: sizingInformation
                                                 .screenSize.height *
-                                            0.25,
-                                        decoration: new BoxDecoration(
-                                          shape: BoxShape.rectangle,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(8.0)),
+                                            0.18,
+                                        child: Image.asset(
+                                          ProductRepositoryImpl()
+                                              .getAllProducts()[index]
+                                              .image,
+                                          fit: BoxFit.fill,
                                         ),
-                                        child: Column(children: [
-                                          Image.asset(
-                                            "assets//1.png",
-                                            fit: BoxFit.fill,
-                                          ),
-                                          Text("Chiken Burger"),
-                                          Text("10"),
-                                        ]),
                                       ),
-                                    );
-                                  },
+                                      Text(ProductRepositoryImpl()
+                                          .getAllProducts()[index]
+                                          .name),
+                                      Text(ProductRepositoryImpl()
+                                          .getAllProducts()[index]
+                                          .price
+                                          .toString()),
+                                    ]),
+                                  ),
                                 ),
-                              ),
-                            
+                              );
+                            },
+                          ),
+                        ),
                       ),
 
                       ///middle part
