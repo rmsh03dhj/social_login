@@ -1,5 +1,6 @@
-import 'package:barahi/data/entities/product_category.dart';
 import 'package:equatable/equatable.dart';
+
+import 'product_category.dart';
 
 class Product extends Equatable {
   final int id;

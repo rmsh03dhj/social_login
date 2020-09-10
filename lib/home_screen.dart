@@ -1,5 +1,4 @@
-import 'package:barahi/bloc/order_cart_bloc.dart';
-import 'package:barahi/screen/pages/tablet/tablet_screen.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -14,7 +13,7 @@ class HomeScreen extends StatelessWidget {
         // }
         // if (sizingInformation.isTablet){
         return BlocProvider(
-          create: (context) => OrderBloc(),
+          create: (context) => OrderCartBloc(),
           child: TabletScreen(),
         );
         //   }

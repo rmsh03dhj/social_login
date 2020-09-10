@@ -1,5 +1,6 @@
-import 'package:barahi/data/entities/product.dart';
 
+
+import 'product.dart';
 
 class ProductList {
   final List<Product> products;

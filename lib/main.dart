@@ -1,5 +1,5 @@
 
-import 'package:barahi/screen/home_screen.dart';
+import 'package:barahi/home_screen.dart';
 import 'package:barahi/splash_screen.dart';
 import 'package:barahi/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
