@@ -1,27 +1,18 @@
 import 'package:barahi/core/error/failure.dart';
-import 'package:barahi/core/usecases/usecase.dart';
+import 'package:barahi/core/usecase/usecase.dart';
 import 'package:barahi/features/homepage/domain/entities/product.dart';
-import 'package:barahi/service_locator.dart';
+import 'package:barahi/features/homepage/domain/repositories/product_repository.dart';
 import 'package:dartz/dartz.dart';
 
+class GetHomePageProductsUseCase implements UseCase<List<Product>, Params> {
+  final ProductRepository productRepository;
 
-    
-class GetHomePageProductsUseCase implements UseCase<List<Product>, HomeProductParams>  {
+  GetHomePageProductsUseCase(this.productRepository);
 
   @override
-  Future<Either<Failure,List<Product>>> call(
-      HomeProductParams params) async {
-
+  Future<Either<Failure, List<Product>>> call(Params params) async {
+    return await productRepository.getAllProducts();
   }
 }
-class HomeProductParams {}
 
-class HomeProductsResult extends UseCaseResult {
-  final List<Product> salesProducts;
-  final List<Product> newProducts;
-
-  HomeProductsResult({this.salesProducts, this.newProducts, Exception exception, bool result})
-    : super(exception: exception, result: result);
-}
-
-class HomeProductsException implements Exception {}
+class Params {}

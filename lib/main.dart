@@ -1,5 +1,6 @@
 
 import 'package:barahi/home_screen.dart';
+import 'package:barahi/service_locator.dart' as di;
 import 'package:barahi/splash_screen.dart';
 import 'package:barahi/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,8 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'home_page.dart';
-
-void main() {
+void main() async {
+    await di.init();
   runApp(MyApp());
 }
 

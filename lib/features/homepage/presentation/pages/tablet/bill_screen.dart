@@ -1,4 +1,4 @@
-import 'package:barahi/bloc/order_cart_bloc.dart';
+import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,18 +28,18 @@ class _BillSectionState extends State<BillSection> {
             SingleChildScrollView(
               child: Container(
                 height: sizingInformation.screenSize.height * 0.6,
-                child: BlocBuilder<OrderBloc, OrderState>(
+                child: BlocBuilder<OrderCartBloc, OrderCartState>(
                     builder: (context, state) {
-                  if (state is OrderInitial) {
+                  if (state is OrderCartErrorState) {
                     return Container();
-                  } else if (state is ItemAdded) {
+                  } else if (state is OrderCartLoadedState) {
                     return DataTable(
                       columns: [
                         DataColumn(label: Text('Name')),
                         DataColumn(label: Text('Quantity')),
                         DataColumn(label: Text('Price')),
                       ],
-                      rows: state.items
+                      rows: state.products
                           .map(
                             ((element) => DataRow(
                                   cells: [
@@ -51,7 +51,6 @@ class _BillSectionState extends State<BillSection> {
                                           SizedBox(
                                             width: 4,
                                           ),
-                                          Text(element.quantity.toString()),
                                           SizedBox(
                                             width: 4,
                                           ),

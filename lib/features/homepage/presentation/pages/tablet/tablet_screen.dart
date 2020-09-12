@@ -1,13 +1,12 @@
-import 'package:barahi/data/repository/product_repository_impl.dart';
-import 'package:barahi/screen/pages/tablet/popular_items_tab.dart';
+import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/popular_items_tab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'bill_screen.dart';
-import 'coffee_items_tab.dart';
-import 'drink_items_tab.dart';
 import 'fast_food_items_tab.dart';
 
 class TabletScreen extends StatefulWidget {
@@ -21,7 +20,7 @@ class _TabletScreenState extends State<TabletScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 4, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     super.initState();
   }
 
@@ -51,63 +50,66 @@ class _TabletScreenState extends State<TabletScreen>
                 ///left side
                 Container(
                   width: sizingInformation.screenSize.width * 0.7,
-                  color: Colors.red,
+                  color: Colors.green,
                   child: Column(
                     children: [
                       ///top banner
                       Container(
                         height: sizingInformation.screenSize.height * 0.25,
-                        child: Scrollbar(
-                          isAlwaysShown: true,
-                          controller: horizontalScrollController,
-                          child: ListView.builder(
-                            controller: horizontalScrollController,
-                            scrollDirection: Axis.horizontal,
-                            itemCount:
-                                ProductRepositoryImpl().getAllProducts().length,
-                            itemBuilder: (context, index) {
-                              return InkWell(
-                                onTap: ,
-                                child: Card(
-                                  child: Container(
-                                    height:
-                                        sizingInformation.screenSize.height *
-                                            0.25,
-                                    width: sizingInformation.screenSize.height *
-                                        0.25,
-                                    decoration: new BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(16.0)),
-                                    ),
-                                    child: Column(children: [
-                                      Container(
-                                        height: sizingInformation
-                                                .screenSize.height *
-                                            0.18,
-                                        width: sizingInformation
-                                                .screenSize.height *
-                                            0.18,
-                                        child: Image.asset(
-                                          ProductRepositoryImpl()
-                                              .getAllProducts()[index]
-                                              .image,
-                                          fit: BoxFit.fill,
+                        color: Colors.greenAccent,
+                        child: BlocBuilder<OrderCartBloc, OrderCartState>(
+                          builder: (context, state) {
+                            if (state is OrderCartLoadedState) {
+                              return Scrollbar(
+                                isAlwaysShown: true,
+                                controller: horizontalScrollController,
+                                child: ListView.builder(
+                                  controller: horizontalScrollController,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: state.products.length,
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: null,
+                                      child: Card(
+                                        child: Container(
+                                          height: sizingInformation
+                                                  .screenSize.height *
+                                              0.25,
+                                          width: sizingInformation
+                                                  .screenSize.height *
+                                              0.25,
+                                          decoration: new BoxDecoration(
+                                            shape: BoxShape.rectangle,
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(16.0)),
+                                          ),
+                                          child: Column(children: [
+                                            Container(
+                                              height: sizingInformation
+                                                      .screenSize.height *
+                                                  0.18,
+                                              width: sizingInformation
+                                                      .screenSize.height *
+                                                  0.18,
+                                              child: Image.asset(
+                                                state.products[index].image,
+                                                fit: BoxFit.fill,
+                                              ),
+                                            ),
+                                            Text(state.products[index].name),
+                                            Text(state.products[index].price
+                                                .toString()),
+                                          ]),
                                         ),
                                       ),
-                                      Text(ProductRepositoryImpl()
-                                          .getAllProducts()[index]
-                                          .name),
-                                      Text(ProductRepositoryImpl()
-                                          .getAllProducts()[index]
-                                          .price
-                                          .toString()),
-                                    ]),
-                                  ),
+                                    );
+                                  },
                                 ),
                               );
-                            },
-                          ),
+                            } else {
+                              return Container();
+                            }
+                          },
                         ),
                       ),
 
@@ -126,12 +128,11 @@ class _TabletScreenState extends State<TabletScreen>
                             Container(
                               height:
                                   sizingInformation.screenSize.height * 0.55,
+                              color: Colors.grey,
                               child: TabBarView(
                                 controller: _tabController,
                                 children: [
                                   PopularItemsTab(),
-                                  CoffeeTab(),
-                                  DrinksTab(),
                                   FastFoodTab(),
                                 ],
                               ),
@@ -146,8 +147,8 @@ class _TabletScreenState extends State<TabletScreen>
                                 tabs: [
                                   Tab(icon: new Text("Popular")),
                                   Tab(icon: new Text("Coffee")),
-                                  Tab(icon: new Text("Drinks")),
-                                  Tab(icon: new Text("Fast food")),
+                                  // Tab(icon: new Text("Drinks")),
+                                  // Tab(icon: new Text("Fast food")),
                                 ],
                               ),
                             )

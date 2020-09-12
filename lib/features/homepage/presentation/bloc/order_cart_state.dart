@@ -6,7 +6,9 @@ abstract class OrderCartState extends Equatable {
   @override
   List<Object> get props => [];
 }
+class Empty extends OrderCartState {}
 
+class Loading extends OrderCartState {}
 class OrderCartInitial extends OrderCartState {}
 
 @immutable
@@ -35,4 +37,11 @@ class OrderCartLoadedState extends OrderCartState {
 }
 
 @immutable
-class OrderCartErrorState extends OrderCartState {}
+class OrderCartErrorState extends OrderCartState {
+   final String message;
+
+  OrderCartErrorState({@required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

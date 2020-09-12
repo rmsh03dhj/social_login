@@ -1,6 +1,6 @@
 
 
-import 'package:barahi/bloc/order_cart_bloc.dart';
+import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,11 +14,11 @@ class FastFoodTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (_, sizingInformation) {
-        return BlocBuilder<OrderBloc, OrderState>(
+        return BlocBuilder<OrderCartBloc, OrderCartState>(
           builder: (context, state) {
-            if (state is OrderInitial) {
+            if (state is OrderCartErrorState) {
               return Container();
-            } else if (state is ItemAdded) {
+            } else if (state is OrderCartLoadedState) {
               return Scrollbar(
                 isAlwaysShown: true,
                 controller: verticalScrollController,
@@ -29,7 +29,7 @@ class FastFoodTab extends StatelessWidget {
                   mainAxisSpacing: 10.0,
                   shrinkWrap: true,
                   children: List.generate(
-                    state.items.length,
+                    state.products.length,
                     (index) {
                       return Card(
                         child: Container(
@@ -42,11 +42,11 @@ class FastFoodTab extends StatelessWidget {
                           ),
                           child: Column(children: [
                             Image.asset(
-                              state.items[index].image,
+                              state.products[index].image,
                               fit: BoxFit.fill,
                             ),
-                            Text(state.items[index].name),
-                            Text(state.items[index].price.toString()),
+                            Text(state.products[index].name),
+                            Text(state.products[index].price.toString()),
                           ]),
                         ),
                       );

@@ -3,6 +3,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import 'features/homepage/presentation/bloc/order_cart_bloc.dart';
+import 'features/homepage/presentation/pages/tablet/tablet_screen.dart';
+import 'service_locator.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         // }
         // if (sizingInformation.isTablet){
         return BlocProvider(
-          create: (context) => OrderCartBloc(),
+          create: (_) => sl<OrderCartBloc>(),
           child: TabletScreen(),
         );
         //   }

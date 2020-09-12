@@ -34,3 +34,10 @@ class RemoveProductEvent extends OrderCartEvent {
 
   RemoveProductEvent({this.item});
 }
+
+@immutable
+class GetAllProductEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetAllProductEvent({this.products});
+}
