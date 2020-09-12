@@ -1,5 +1,3 @@
-
-
 import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +7,13 @@ import 'package:responsive_builder/responsive_builder.dart';
 class FastFoodTab extends StatelessWidget {
   final ScrollController verticalScrollController = ScrollController();
 
-  
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (_, sizingInformation) {
         return BlocBuilder<OrderCartBloc, OrderCartState>(
           builder: (context, state) {
-            if (state is OrderCartErrorState) {
+            if (state is OrderCartInitial) {
               return Container();
             } else if (state is OrderCartLoadedState) {
               return Scrollbar(
@@ -41,9 +38,17 @@ class FastFoodTab extends StatelessWidget {
                                 BorderRadius.all(Radius.circular(8.0)),
                           ),
                           child: Column(children: [
-                            Image.asset(
-                              state.products[index].image,
-                              fit: BoxFit.fill,
+                            Container(
+                              height:
+                                  sizingInformation.screenSize.height * 0.12,
+                              width: sizingInformation.screenSize.height * 0.12,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.asset(
+                                  state.products[index].image,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
                             ),
                             Text(state.products[index].name),
                             Text(state.products[index].price.toString()),

@@ -41,3 +41,45 @@ class GetAllProductEvent extends OrderCartEvent {
 
   GetAllProductEvent({this.products});
 }
+
+@immutable
+class GetBurgersEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetBurgersEvent({this.products});
+}
+
+@immutable
+class GetCoffeeEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetCoffeeEvent({this.products});
+}
+
+@immutable
+class GetDesertEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetDesertEvent({this.products});
+}
+
+@immutable
+class GetDrinksEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetDrinksEvent({this.products});
+}
+
+@immutable
+class GetJuiceEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetJuiceEvent({this.products});
+}
+
+@immutable
+class GetPiesEvent extends OrderCartEvent {
+  final List<Product> products;
+
+  GetPiesEvent({this.products});
+}

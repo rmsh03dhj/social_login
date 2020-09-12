@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -17,7 +16,7 @@ class HomeScreen extends StatelessWidget {
         // }
         // if (sizingInformation.isTablet){
         return BlocProvider(
-          create: (_) => sl<OrderCartBloc>(),
+          create: (_) => sl<OrderCartBloc>()..add(GetAllProductEvent()),
           child: TabletScreen(),
         );
         //   }

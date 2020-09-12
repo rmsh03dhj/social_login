@@ -1,5 +1,6 @@
 import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
 import 'package:barahi/features/homepage/presentation/pages/tablet/popular_items_tab.dart';
+import 'package:barahi/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -91,9 +92,13 @@ class _TabletScreenState extends State<TabletScreen>
                                               width: sizingInformation
                                                       .screenSize.height *
                                                   0.18,
-                                              child: Image.asset(
-                                                state.products[index].image,
-                                                fit: BoxFit.fill,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Image.asset(
+                                                  state.products[index].image,
+                                                  fit: BoxFit.fill,
+                                                ),
                                               ),
                                             ),
                                             Text(state.products[index].name),
@@ -132,8 +137,16 @@ class _TabletScreenState extends State<TabletScreen>
                               child: TabBarView(
                                 controller: _tabController,
                                 children: [
-                                  PopularItemsTab(),
-                                  FastFoodTab(),
+                                  BlocProvider(
+                                    create: (_) => sl<OrderCartBloc>()
+                                      ..add(GetBurgersEvent()),
+                                    child: PopularItemsTab(),
+                                  ),
+                                  BlocProvider(
+                                    create: (_) => sl<OrderCartBloc>()
+                                      ..add(GetDrinksEvent()),
+                                    child: FastFoodTab(),
+                                  ),
                                 ],
                               ),
                             ),
