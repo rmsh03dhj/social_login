@@ -16,11 +16,11 @@ class OrderCartLoadingState extends OrderCartState {}
 
 @immutable
 class OrderCartLoadedState extends OrderCartState {
-  final List<Product> products;
+  final ProductDto productDto;
   final double totalPrice;
   final double discount;
 
-  OrderCartLoadedState({this.products, this.totalPrice, this.discount});
+  OrderCartLoadedState({this.productDto, this.totalPrice, this.discount});
 
   OrderCartLoadedState copyWith({
     List<Product> cartProducts,

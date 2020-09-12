@@ -39,7 +39,7 @@ class _BillSectionState extends State<BillSection> {
                         DataColumn(label: Text('Quantity')),
                         DataColumn(label: Text('Price')),
                       ],
-                      rows: state.products
+                      rows: state.productDto.allProducts
                           .map(
                             ((element) => DataRow(
                                   cells: [

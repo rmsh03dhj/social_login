@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class FastFoodTab extends StatelessWidget {
+class DisplayCoffeesTab extends StatelessWidget {
   final ScrollController verticalScrollController = ScrollController();
 
   @override
@@ -26,7 +26,7 @@ class FastFoodTab extends StatelessWidget {
                   mainAxisSpacing: 10.0,
                   shrinkWrap: true,
                   children: List.generate(
-                    state.products.length,
+                    state.productDto.coffees.length,
                     (index) {
                       return Card(
                         child: Container(
@@ -45,13 +45,13 @@ class FastFoodTab extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
-                                  state.products[index].image,
+                                  state.productDto.coffees[index].image,
                                   fit: BoxFit.fill,
                                 ),
                               ),
                             ),
-                            Text(state.products[index].name),
-                            Text(state.products[index].price.toString()),
+                            Text(state.productDto.coffees[index].name),
+                            Text(state.productDto.coffees[index].price.toString()),
                           ]),
                         ),
                       );

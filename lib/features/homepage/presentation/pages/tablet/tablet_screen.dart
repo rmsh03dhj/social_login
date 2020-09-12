@@ -1,6 +1,9 @@
 import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
-import 'package:barahi/features/homepage/presentation/pages/tablet/popular_items_tab.dart';
-import 'package:barahi/service_locator.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/display_burger_tab.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/display_coffee_tab.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/display_deserts_tab.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/display_drinks_tab.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/display_pies_tab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'bill_screen.dart';
-import 'fast_food_items_tab.dart';
+import 'display_juices_tab.dart';
 
 class TabletScreen extends StatefulWidget {
   _TabletScreenState createState() => _TabletScreenState();
@@ -21,7 +24,7 @@ class _TabletScreenState extends State<TabletScreen>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
     super.initState();
   }
 
@@ -67,7 +70,7 @@ class _TabletScreenState extends State<TabletScreen>
                                 child: ListView.builder(
                                   controller: horizontalScrollController,
                                   scrollDirection: Axis.horizontal,
-                                  itemCount: state.products.length,
+                                  itemCount: state.productDto.popularProducts.length,
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: null,
@@ -96,13 +99,13 @@ class _TabletScreenState extends State<TabletScreen>
                                                 padding:
                                                     const EdgeInsets.all(8.0),
                                                 child: Image.asset(
-                                                  state.products[index].image,
+                                                  state.productDto.popularProducts[index].image,
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
                                             ),
-                                            Text(state.products[index].name),
-                                            Text(state.products[index].price
+                                            Text(state.productDto.popularProducts[index].name),
+                                            Text(state.productDto.popularProducts[index].price
                                                 .toString()),
                                           ]),
                                         ),
@@ -137,16 +140,12 @@ class _TabletScreenState extends State<TabletScreen>
                               child: TabBarView(
                                 controller: _tabController,
                                 children: [
-                                  BlocProvider(
-                                    create: (_) => sl<OrderCartBloc>()
-                                      ..add(GetBurgersEvent()),
-                                    child: PopularItemsTab(),
-                                  ),
-                                  BlocProvider(
-                                    create: (_) => sl<OrderCartBloc>()
-                                      ..add(GetDrinksEvent()),
-                                    child: FastFoodTab(),
-                                  ),
+                                  DisplayBurgersTab(),
+                                  DisplayCoffeesTab(),
+                                  DisplayDesertsTab(),
+                                  DisplayDrinksTab(),
+                                  DisplayJuicesTab(),
+                                  DisplayPiesTab(),
                                 ],
                               ),
                             ),
@@ -158,8 +157,12 @@ class _TabletScreenState extends State<TabletScreen>
                               child: TabBar(
                                 controller: _tabController,
                                 tabs: [
-                                  Tab(icon: new Text("Popular")),
+                                  Tab(icon: new Text("Burgers")),
                                   Tab(icon: new Text("Coffee")),
+                                  Tab(icon: new Text("Desert")),
+                                  Tab(icon: new Text("Drinks")),
+                                  Tab(icon: new Text("Juice")),
+                                  Tab(icon: new Text("Pies")),
                                   // Tab(icon: new Text("Drinks")),
                                   // Tab(icon: new Text("Fast food")),
                                 ],

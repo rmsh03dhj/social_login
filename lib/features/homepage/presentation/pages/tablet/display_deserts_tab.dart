@@ -1,18 +1,17 @@
 import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
-import 'package:barahi/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-class PopularItemsTab extends StatelessWidget {
+class DisplayDesertsTab extends StatelessWidget {
   final ScrollController verticalScrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (_, sizingInformation) {
-        return BlocBuilder(
+        return BlocBuilder<OrderCartBloc, OrderCartState>(
           builder: (context, state) {
             if (state is OrderCartInitial) {
               return Container();
@@ -27,7 +26,7 @@ class PopularItemsTab extends StatelessWidget {
                   mainAxisSpacing: 10.0,
                   shrinkWrap: true,
                   children: List.generate(
-                    state.products.length,
+                    state.productDto.deserts.length,
                     (index) {
                       return Card(
                         child: Container(
@@ -46,13 +45,13 @@ class PopularItemsTab extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset(
-                                  state.products[index].image,
+                                  state.productDto.deserts[index].image,
                                   fit: BoxFit.fill,
                                 ),
                               ),
                             ),
-                            Text(state.products[index].name),
-                            Text(state.products[index].price.toString()),
+                            Text(state.productDto.deserts[index].name),
+                            Text(state.productDto.deserts[index].price.toString()),
                           ]),
                         ),
                       );

@@ -216,7 +216,7 @@ final products = [
     "name": "Chicken Burger",
     "image": "assets/burger/6.png",
     "price": 5.0,
-    "categories": ["burger"],
+    "categories": ["burger","popular"],
   },
 
   ///coffee
@@ -267,7 +267,7 @@ final products = [
     "name": "Chicken Burger",
     "image": "assets/coffee/7.png",
     "price": 10.45,
-    "categories": ["coffee"],
+    "categories": ["coffee","popular"],
   },
   {
     "id": 1,
@@ -377,69 +377,69 @@ final products = [
     "categories": ["desert"],
   },
 
-  ///hard drinks
+  ///drinks
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/1.png",
     "price": 10.45,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/2.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink","popular"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/3.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/4.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/5.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/6.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/7.png",
     "price": 10.45,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/8.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
   {
     "id": 1,
     "name": "Chicken Burger",
     "image": "assets/drinks/9.png",
     "price": 5.0,
-    "categories": ["hard_drink"],
+    "categories": ["drink"],
   },
 
   ///juice
