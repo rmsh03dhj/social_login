@@ -5,7 +5,7 @@ part 'product.g.dart';
 
 @JsonSerializable()
 class Product extends Equatable {
-  final int id;
+  final String id;
   final String name;
   final double price;
   final String image;

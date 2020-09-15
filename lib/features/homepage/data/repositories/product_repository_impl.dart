@@ -37,268 +37,165 @@ class ProductRepositoryImpl extends ProductRepository {
   }
 
   @override
-  Future<Either<Failure, List<Product>>> getBurgers() async {
+  Future<Either<Failure, Product>> getProduct(Product product) async {
     if (await networkInfo.isConnected) {
       try {
         final productsFromRemoteSource =
             ProductList.fromJson(products).products;
-        return Right(productsFromRemoteSource);
+        Product outputProduct = Product();
+        for (Product prod in productsFromRemoteSource) {
+          if (product.id.compareTo(prod.id)==0) {
+            outputProduct = prod;
+            break;
+          }
+        }
+        return Right(outputProduct);
       } on ServerException {
         return Left(ServerFailure());
       }
     } else {
       try {
         final productsFromLocalSource = ProductList.fromJson(products).products;
-        productsFromLocalSource
-            .where((item) => item.categories.contains("burger"));
-        return Right(productsFromLocalSource);
+        Product outputProduct = Product();
+        for (Product prod in productsFromLocalSource) {
+          if (prod.id == id) {
+            outputProduct = prod;
+            break;
+          }
+        }
+        return Right(outputProduct);
       } on CacheException {
         return Left(CacheFailure());
       }
     }
-  }
-
-  @override
-  Future<Either<Failure, List<Product>>> getCoffee() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productsFromRemoteSource =
-            ProductList.fromJson(products).products;
-        return Right(productsFromRemoteSource);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final productsFromLocalSource = ProductList.fromJson(products).products;
-        productsFromLocalSource
-            .where((item) => item.categories.contains("coffee"));
-        return Right(productsFromLocalSource);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Product>>> getDesert() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productsFromRemoteSource =
-            ProductList.fromJson(products).products;
-        return Right(productsFromRemoteSource);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final productsFromLocalSource = ProductList.fromJson(products).products;
-        productsFromLocalSource
-            .where((item) => item.categories.contains("desert"));
-        return Right(productsFromLocalSource);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Product>>> getDrinks() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productsFromRemoteSource =
-            ProductList.fromJson(products).products;
-        return Right(productsFromRemoteSource);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final productsFromLocalSource = ProductList.fromJson(products).products;
-        productsFromLocalSource
-            .where((item) => item.categories.contains("drinks"));
-        return Right(productsFromLocalSource);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Product>>> getJuice() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productsFromRemoteSource =
-            ProductList.fromJson(products).products;
-        return Right(productsFromRemoteSource);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final productsFromLocalSource = ProductList.fromJson(products).products;
-        productsFromLocalSource
-            .where((item) => item.categories.contains("juice"));
-        return Right(productsFromLocalSource);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-
-  @override
-  Future<Either<Failure, List<Product>>> getPie() async {
-    if (await networkInfo.isConnected) {
-      try {
-        final productsFromRemoteSource =
-            ProductList.fromJson(products).products;
-        return Right(productsFromRemoteSource);
-      } on ServerException {
-        return Left(ServerFailure());
-      }
-    } else {
-      try {
-        final productsFromLocalSource = ProductList.fromJson(products).products;
-        productsFromLocalSource
-            .where((item) => item.categories.contains("pie"));
-        return Right(productsFromLocalSource);
-      } on CacheException {
-        return Left(CacheFailure());
-      }
-    }
-  }
-
-  @override
-  Future<Either<Failure, Product>> getProduct(int id) async {
-    throw UnimplementedError();
   }
 }
 
 final products = [
   ///burgers
   {
-    "id": 1,
+    "id": "1_1",
     "name": "Chicken Burger",
     "image": "assets/burger/1.png",
     "price": 10.45,
     "categories": ["burger"],
   },
   {
-    "id": 1,
+    "id": "1_2",
     "name": "Chicken Burger",
     "image": "assets/burger/2.png",
     "price": 5.0,
     "categories": ["burger"],
   },
   {
-    "id": 1,
+    "id": "1_3",
     "name": "Chicken Burger",
     "image": "assets/burger/3.png",
     "price": 5.0,
     "categories": ["burger"],
   },
   {
-    "id": 1,
+    "id": "1_4",
     "name": "Chicken Burger",
     "image": "assets/burger/4.png",
     "price": 5.0,
     "categories": ["burger"],
   },
   {
-    "id": 1,
+    "id": "1_5",
     "name": "Chicken Burger",
     "image": "assets/burger/5.png",
     "price": 5.0,
     "categories": ["burger"],
   },
   {
-    "id": 1,
+    "id": "1_6",
     "name": "Chicken Burger",
     "image": "assets/burger/6.png",
     "price": 5.0,
-    "categories": ["burger","popular"],
+    "categories": ["burger", "popular"],
   },
 
   ///coffee
   {
-    "id": 1,
+    "id": "2_1",
     "name": "Chicken Burger",
     "image": "assets/coffee/1.png",
     "price": 10.45,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_2",
     "name": "Chicken Burger",
     "image": "assets/coffee/2.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_3",
     "name": "Chicken Burger",
     "image": "assets/coffee/3.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_4",
     "name": "Chicken Burger",
     "image": "assets/coffee/4.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_5",
     "name": "Chicken Burger",
     "image": "assets/coffee/5.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_6",
     "name": "Chicken Burger",
     "image": "assets/coffee/6.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_7",
     "name": "Chicken Burger",
     "image": "assets/coffee/7.png",
     "price": 10.45,
-    "categories": ["coffee","popular"],
+    "categories": ["coffee", "popular"],
   },
   {
-    "id": 1,
+    "id": "2_8",
     "name": "Chicken Burger",
     "image": "assets/coffee/8.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_9",
     "name": "Chicken Burger",
     "image": "assets/coffee/9.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_10",
     "name": "Chicken Burger",
     "image": "assets/coffee/10.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_11",
     "name": "Chicken Burger",
     "image": "assets/coffee/11.png",
     "price": 5.0,
     "categories": ["coffee"],
   },
   {
-    "id": 1,
+    "id": "2_12",
     "name": "Chicken Burger",
     "image": "assets/coffee/12.png",
     "price": 5.0,
@@ -307,70 +204,70 @@ final products = [
 
   ///desert
   {
-    "id": 1,
+    "id": "3_1",
     "name": "Chicken Burger",
     "image": "assets/desert/1.png",
     "price": 10.45,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_2",
     "name": "Chicken Burger",
     "image": "assets/desert/2.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_3",
     "name": "Chicken Burger",
     "image": "assets/desert/3.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_4",
     "name": "Chicken Burger",
     "image": "assets/desert/4.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_5",
     "name": "Chicken Burger",
     "image": "assets/desert/5.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_6",
     "name": "Chicken Burger",
     "image": "assets/desert/6.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_7",
     "name": "Chicken Burger",
     "image": "assets/desert/7.png",
     "price": 10.45,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_8",
     "name": "Chicken Burger",
     "image": "assets/desert/8.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_9",
     "name": "Chicken Burger",
     "image": "assets/desert/9.png",
     "price": 5.0,
     "categories": ["desert"],
   },
   {
-    "id": 1,
+    "id": "3_10",
     "name": "Chicken Burger",
     "image": "assets/desert/10.png",
     "price": 5.0,
@@ -379,63 +276,63 @@ final products = [
 
   ///drinks
   {
-    "id": 1,
+    "id": "4_1",
     "name": "Chicken Burger",
     "image": "assets/drinks/1.png",
     "price": 10.45,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_2",
     "name": "Chicken Burger",
     "image": "assets/drinks/2.png",
     "price": 5.0,
-    "categories": ["drink","popular"],
+    "categories": ["drink", "popular"],
   },
   {
-    "id": 1,
+    "id": "4_3",
     "name": "Chicken Burger",
     "image": "assets/drinks/3.png",
     "price": 5.0,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_4",
     "name": "Chicken Burger",
     "image": "assets/drinks/4.png",
     "price": 5.0,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_5",
     "name": "Chicken Burger",
     "image": "assets/drinks/5.png",
     "price": 5.0,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_6",
     "name": "Chicken Burger",
     "image": "assets/drinks/6.png",
     "price": 5.0,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_7",
     "name": "Chicken Burger",
     "image": "assets/drinks/7.png",
     "price": 10.45,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_8",
     "name": "Chicken Burger",
     "image": "assets/drinks/8.png",
     "price": 5.0,
     "categories": ["drink"],
   },
   {
-    "id": 1,
+    "id": "4_9",
     "name": "Chicken Burger",
     "image": "assets/drinks/9.png",
     "price": 5.0,
@@ -444,84 +341,84 @@ final products = [
 
   ///juice
   {
-    "id": 1,
+    "id": "5_1",
     "name": "Chicken Burger",
     "image": "assets/juice/1.png",
     "price": 10.45,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_2",
     "name": "Chicken Burger",
     "image": "assets/juice/2.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_3",
     "name": "Chicken Burger",
     "image": "assets/juice/3.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_4",
     "name": "Chicken Burger",
     "image": "assets/juice/4.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_5",
     "name": "Chicken Burger",
     "image": "assets/juice/5.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_6",
     "name": "Chicken Burger",
     "image": "assets/juice/6.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_7",
     "name": "Chicken Burger",
     "image": "assets/juice/7.png",
     "price": 10.45,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_8",
     "name": "Chicken Burger",
     "image": "assets/juice/8.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_9",
     "name": "Chicken Burger",
     "image": "assets/juice/9.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_10",
     "name": "Chicken Burger",
     "image": "assets/juice/10.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_11",
     "name": "Chicken Burger",
     "image": "assets/juice/11.png",
     "price": 5.0,
     "categories": ["juice"],
   },
   {
-    "id": 1,
+    "id": "5_12",
     "name": "Chicken Burger",
     "image": "assets/juice/12.png",
     "price": 5.0,
@@ -530,77 +427,77 @@ final products = [
 
   ///pies
   {
-    "id": 1,
+    "id": "6_1",
     "name": "Chicken Burger",
     "image": "assets/pies/1.png",
     "price": 10.45,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_2",
     "name": "Chicken Burger",
     "image": "assets/pies/2.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_3",
     "name": "Chicken Burger",
     "image": "assets/pies/3.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_4",
     "name": "Chicken Burger",
     "image": "assets/pies/4.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_5",
     "name": "Chicken Burger",
     "image": "assets/pies/5.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_7",
     "name": "Chicken Burger",
     "image": "assets/pies/6.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_8",
     "name": "Chicken Burger",
     "image": "assets/pies/7.png",
     "price": 10.45,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_9",
     "name": "Chicken Burger",
     "image": "assets/pies/8.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_10",
     "name": "Chicken Burger",
     "image": "assets/pies/9.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_11",
     "name": "Chicken Burger",
     "image": "assets/pies/10.png",
     "price": 5.0,
     "categories": ["pie"],
   },
   {
-    "id": 1,
+    "id": "6_12",
     "name": "Chicken Burger",
     "image": "assets/pies/11.png",
     "price": 5.0,

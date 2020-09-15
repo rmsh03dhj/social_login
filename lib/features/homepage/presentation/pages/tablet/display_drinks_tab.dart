@@ -1,4 +1,6 @@
-import 'package:barahi/features/homepage/presentation/bloc/order_cart_bloc.dart';
+import 'package:barahi/features/homepage/presentation/bloc/display_product_bloc.dart';
+import 'package:barahi/features/homepage/presentation/bloc/display_product_state.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/tablet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,11 +13,11 @@ class DisplayDrinksTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return ResponsiveBuilder(
       builder: (_, sizingInformation) {
-        return BlocBuilder<OrderCartBloc, OrderCartState>(
+        return BlocBuilder<DisplayProductBloc, DisplayProductState>(
           builder: (context, state) {
-            if (state is OrderCartInitial) {
+            if (state is DisplayProductInitialState) {
               return Container();
-            } else if (state is OrderCartLoadedState) {
+            } else if (state is DisplayProductLoadedState) {
               return Scrollbar(
                 isAlwaysShown: true,
                 controller: verticalScrollController,
@@ -28,31 +30,34 @@ class DisplayDrinksTab extends StatelessWidget {
                   children: List.generate(
                     state.productDto.drinks.length,
                     (index) {
-                      return Card(
-                        child: Container(
-                          height: sizingInformation.screenSize.height * 0.25,
-                          width: sizingInformation.screenSize.height * 0.25,
-                          decoration: new BoxDecoration(
-                            shape: BoxShape.rectangle,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(8.0)),
-                          ),
-                          child: Column(children: [
-                            Container(
-                              height:
-                                  sizingInformation.screenSize.height * 0.12,
-                              width: sizingInformation.screenSize.height * 0.12,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Image.asset(
-                                  state.productDto.drinks[index].image,
-                                  fit: BoxFit.fill,
+                      return InkWell(
+                        onTap: ()=> addProductToCart(state.productDto.burgers[index]),
+                        child: Card(
+                          child: Container(
+                            height: sizingInformation.screenSize.height * 0.25,
+                            width: sizingInformation.screenSize.height * 0.25,
+                            decoration: new BoxDecoration(
+                              shape: BoxShape.rectangle,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(8.0)),
+                            ),
+                            child: Column(children: [
+                              Container(
+                                height:
+                                    sizingInformation.screenSize.height * 0.12,
+                                width: sizingInformation.screenSize.height * 0.12,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Image.asset(
+                                    state.productDto.drinks[index].image,
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
-                            ),
-                            Text(state.productDto.drinks[index].name),
-                            Text(state.productDto.drinks[index].price.toString()),
-                          ]),
+                              Text(state.productDto.drinks[index].name),
+                              Text(state.productDto.drinks[index].price.toString()),
+                            ]),
+                          ),
                         ),
                       );
                     },

@@ -3,34 +3,33 @@ import 'dart:async';
 import 'package:barahi/core/error/failure.dart';
 import 'package:barahi/features/homepage/data/models/product_dto.dart';
 import 'package:barahi/features/homepage/domain/entities/product.dart';
-import 'package:barahi/features/homepage/domain/usecases/get_home_products_use_case.dart';
+import 'package:barahi/features/cart/domain/usecases/add_product_to_cart_use_case.dart';
+import 'package:barahi/features/homepage/domain/usecases/get_home_page_products_use_case.dart';
+import 'package:barahi/features/homepage/presentation/bloc/display_prodcut_event.dart';
+import 'package:barahi/features/homepage/presentation/bloc/display_product_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 
-part 'order_cart_event.dart';
-part 'order_cart_state.dart';
-
-class OrderCartBloc extends Bloc<OrderCartEvent, OrderCartState> {
+class DisplayProductBloc extends Bloc<DisplayProductEvent, DisplayProductState> {
   final GetHomePageProductsUseCase getHomePageProductsUseCase;
+  final AddProductToCartUseCase addProductToCartUseCase;
 
-  OrderCartBloc({this.getHomePageProductsUseCase}) : super(null);
+  DisplayProductBloc({this.getHomePageProductsUseCase,this.addProductToCartUseCase}) : super(null);
 
   @override
-  Stream<OrderCartState> mapEventToState(OrderCartEvent event) async* {
+  Stream<DisplayProductState> mapEventToState(DisplayProductEvent event) async* {
     if (event is GetAllProductEvent) {
-      yield OrderCartLoadingState();
-      final failureOrTrivia =
+      yield DisplayProductLoadingState();
+      final failureOrProductDto =
           await getHomePageProductsUseCase(GetHomePageProductsParams());
-      yield* _eitherLoadedOrErrorState(failureOrTrivia);
+      yield* _eitherLoadedOrErrorState(failureOrProductDto);
     }
   }
 
-  Stream<OrderCartState> _eitherLoadedOrErrorState(
+  Stream<DisplayProductState> _eitherLoadedOrErrorState(
       Either<Failure, List<Product>> failureOrProducts) async* {
     yield failureOrProducts
-        .fold((failure) => OrderCartErrorState(message: "Failed"), (products) {
+        .fold((failure) => DisplayProductErrorState(message: "Failed"), (products) {
       List<Product> burgers =
           products.where((product) => product.categories.contains("burger")).toList();
       List<Product> popularProducts =
@@ -56,7 +55,7 @@ class OrderCartBloc extends Bloc<OrderCartEvent, OrderCartState> {
         ..juices = juice
         ..pies = pies;
 
-      return OrderCartLoadedState(productDto: productDto);
+      return DisplayProductLoadedState(productDto: productDto);
     });
   }
 }
