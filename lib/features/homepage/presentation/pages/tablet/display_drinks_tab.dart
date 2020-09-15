@@ -1,6 +1,6 @@
+import 'package:barahi/features/cart/presentation/bloc/cart_item_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_state.dart';
-import 'package:barahi/features/homepage/presentation/pages/tablet/tablet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +31,12 @@ class DisplayDrinksTab extends StatelessWidget {
                     state.productDto.drinks.length,
                     (index) {
                       return InkWell(
-                        onTap: ()=> addProductToCart(state.productDto.burgers[index]),
+                        onTap: () {
+                          BlocProvider.of<CartItemBloc>(context).add(
+                              AddProductEvent(
+                                  product:
+                                      state.productDto.popularProducts[index]));
+                        },
                         child: Card(
                           child: Container(
                             height: sizingInformation.screenSize.height * 0.25,
@@ -45,7 +50,8 @@ class DisplayDrinksTab extends StatelessWidget {
                               Container(
                                 height:
                                     sizingInformation.screenSize.height * 0.12,
-                                width: sizingInformation.screenSize.height * 0.12,
+                                width:
+                                    sizingInformation.screenSize.height * 0.12,
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Image.asset(
@@ -55,7 +61,8 @@ class DisplayDrinksTab extends StatelessWidget {
                                 ),
                               ),
                               Text(state.productDto.drinks[index].name),
-                              Text(state.productDto.drinks[index].price.toString()),
+                              Text(state.productDto.drinks[index].price
+                                  .toString()),
                             ]),
                           ),
                         ),

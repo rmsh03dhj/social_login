@@ -202,7 +202,3 @@ class _TabletScreenState extends State<TabletScreen>
     );
   }
 }
-
-void addProductToCart(Product product) {
-  CartItemBloc()..add(AddProductEvent(product: product));
-}

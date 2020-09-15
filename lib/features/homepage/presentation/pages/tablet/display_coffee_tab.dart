@@ -1,6 +1,6 @@
+import 'package:barahi/features/cart/presentation/bloc/cart_item_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_state.dart';
-import 'package:barahi/features/homepage/presentation/pages/tablet/tablet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,8 +31,12 @@ class DisplayCoffeesTab extends StatelessWidget {
                     state.productDto.coffees.length,
                     (index) {
                       return InkWell(
-                        onTap: ()=> addProductToCart(state.productDto.burgers[index]),
-                        child: Card(
+                        onTap: () {
+                          BlocProvider.of<CartItemBloc>(context)
+                              .add(AddProductEvent(
+                              product: state.productDto
+                                  .popularProducts[index]));
+                        },                        child: Card(
                           child: Container(
                             height: sizingInformation.screenSize.height * 0.25,
                             width: sizingInformation.screenSize.height * 0.25,

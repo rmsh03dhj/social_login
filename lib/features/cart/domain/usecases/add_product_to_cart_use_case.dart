@@ -13,7 +13,6 @@ class AddProductToCartUseCase implements UseCase<Product, AddProductToCartParams
 
   @override
   Future<Either<Failure, Product>> call(AddProductToCartParams params) async {
-    print("I am herer ${params.product.name}");
         return await productRepository.getProduct(params.product);
   }
 }

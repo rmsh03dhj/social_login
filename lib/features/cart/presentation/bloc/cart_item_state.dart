@@ -16,11 +16,7 @@ class CartItemLoadingState extends CartItemState {}
 class CartItemLoadedState extends CartItemState {
   final CartDto cartDto;
 
-  CartItemLoadedState({this.cartDto});
-
-  CartItemLoadedState copyWith({CartDto cartDto}) {
-    return CartItemLoadedState(cartDto: cartDto ?? this.cartDto);
-  }
+  CartItemLoadedState({this.cartDto = const CartDto()});
 
   @override
   List<Object> get props => [cartDto];

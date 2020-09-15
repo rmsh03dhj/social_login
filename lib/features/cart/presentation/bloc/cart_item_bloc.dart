@@ -21,28 +21,28 @@ class CartItemBloc extends Bloc<CartItemEvent, CartItemState> {
   Stream<CartItemState> mapEventToState(CartItemEvent event) async* {
 
     if (event is AddProductEvent) {
-      print("adding product");
       yield CartItemLoadingState();
       final failureOrProduct =
           await addProductToCartUseCase(AddProductToCartParams(product: event.product));
-      yield* _eitherLoadedOrErrorState(failureOrProduct);
+      yield* _eitherLoadedOrErrorState(failureOrProduct, state);
     }
   }
 
   Stream<CartItemState> _eitherLoadedOrErrorState(
-      Either<Failure, Product> failureOrProduct) async* {
-    List<Product> selectedProducts = List();
-    double totalPrice = 0.0;
+      Either<Failure, Product> failureOrProduct, CartItemState state) async* {
+
     yield failureOrProduct
         .fold((failure) => CartItemErrorState(message: "Failed"), (product) {
-      selectedProducts.add(product);
-          totalPrice+=product.price;
 
-      CartDto cartDto = CartDto()
-        ..selectedProducts = selectedProducts
-        ..totalPrice = totalPrice;
+          if(state is CartItemLoadedState){
+            print(List.from(state.cartDto.selectedProducts));
+            CartDto cartDto = CartDto(selectedProducts : List.from(state.cartDto.selectedProducts..add(product)));
 
-      return CartItemLoadedState(cartDto: cartDto);
+            return CartItemLoadedState(cartDto: cartDto);
+          }else{
+            return CartItemErrorState(message: "Failed");
+          }
+
     });
   }
 }

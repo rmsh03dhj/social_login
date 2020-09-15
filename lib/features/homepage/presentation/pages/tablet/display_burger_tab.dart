@@ -1,6 +1,6 @@
+import 'package:barahi/features/cart/presentation/bloc/cart_item_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_state.dart';
-import 'package:barahi/features/homepage/presentation/pages/tablet/tablet_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +31,12 @@ class DisplayBurgersTab extends StatelessWidget {
                     state.productDto.burgers.length,
                     (index) {
                       return InkWell(
-                        onTap: ()=> addProductToCart(state.productDto.burgers[index]),
+                        onTap: () {
+                          BlocProvider.of<CartItemBloc>(context).add(
+                              AddProductEvent(
+                                  product:
+                                      state.productDto.popularProducts[index]));
+                        },
                         child: Card(
                           child: Container(
                             height: sizingInformation.screenSize.height * 0.25,
@@ -41,22 +46,26 @@ class DisplayBurgersTab extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(8.0)),
                             ),
-                            child: Column(children: [
-                              Container(
-                                height:
-                                    sizingInformation.screenSize.height * 0.12,
-                                width: sizingInformation.screenSize.height * 0.12,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    state.productDto.burgers[index].image,
-                                    fit: BoxFit.fill,
+                            child: Column(
+                              children: [
+                                Container(
+                                  height: sizingInformation.screenSize.height *
+                                      0.12,
+                                  width: sizingInformation.screenSize.height *
+                                      0.12,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Image.asset(
+                                      state.productDto.burgers[index].image,
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              Text(state.productDto.burgers[index].name),
-                              Text(state.productDto.burgers[index].price.toString()),
-                            ],),
+                                Text(state.productDto.burgers[index].name),
+                                Text(state.productDto.burgers[index].price
+                                    .toString()),
+                              ],
+                            ),
                           ),
                         ),
                       );
