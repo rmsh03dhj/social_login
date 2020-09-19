@@ -20,7 +20,7 @@ class HomeScreen extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider<CartItemBloc>(
-              create: (context) => sl<CartItemBloc>(),
+              create: (context) => sl<CartItemBloc>()..add(CartItemInitializingEvent()),
             ),
             BlocProvider<DisplayProductBloc>(
                         create: (_) => sl<DisplayProductBloc>()..add(GetAllProductEvent()),

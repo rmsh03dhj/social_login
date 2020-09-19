@@ -8,6 +8,11 @@ abstract class CartItemEvent extends Equatable {
 }
 
 @immutable
+class CartItemInitializingEvent extends CartItemEvent {
+  CartItemInitializingEvent();
+}
+
+@immutable
 class AddProductEvent extends CartItemEvent {
   final Product product;
 
@@ -15,17 +20,17 @@ class AddProductEvent extends CartItemEvent {
 }
 
 @immutable
-class IncrementQunatityEvent extends CartItemEvent {
+class IncrementQuantityEvent extends CartItemEvent {
   final Product product;
 
-  IncrementQunatityEvent({this.product});
+  IncrementQuantityEvent({this.product});
 }
 
 @immutable
-class DecrementQunatityEvent extends CartItemEvent {
+class DecrementQuantityEvent extends CartItemEvent {
   final Product product;
 
-  DecrementQunatityEvent({this.product});
+  DecrementQuantityEvent({this.product});
 }
 
 @immutable

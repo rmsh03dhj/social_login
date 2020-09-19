@@ -19,9 +19,11 @@ class CartItemBloc extends Bloc<CartItemEvent, CartItemState> {
 
   @override
   Stream<CartItemState> mapEventToState(CartItemEvent event) async* {
+    if(event is CartItemInitializingEvent){
+      yield CartItemLoadedState();
+    }
 
     if (event is AddProductEvent) {
-      yield CartItemLoadingState();
       final failureOrProduct =
           await addProductToCartUseCase(AddProductToCartParams(product: event.product));
       yield* _eitherLoadedOrErrorState(failureOrProduct, state);
@@ -36,7 +38,7 @@ class CartItemBloc extends Bloc<CartItemEvent, CartItemState> {
 
           if(state is CartItemLoadedState){
             print(List.from(state.cartDto.selectedProducts));
-            CartDto cartDto = CartDto(selectedProducts : List.from(state.cartDto.selectedProducts..add(product)));
+            CartDto cartDto = CartDto(selectedProducts : List<Product>.from(state.cartDto.selectedProducts)..add(product));
 
             return CartItemLoadedState(cartDto: cartDto);
           }else{

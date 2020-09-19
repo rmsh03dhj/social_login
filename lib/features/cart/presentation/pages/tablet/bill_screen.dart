@@ -86,7 +86,7 @@ class _BillSectionState extends State<BillSection> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text("Total"),
-//                              Text(state.cartDto.totalPrice.toString()),
+                              Text(state.cartDto.totalPrice.toString()),
                             ],
                           ),
                         ],
