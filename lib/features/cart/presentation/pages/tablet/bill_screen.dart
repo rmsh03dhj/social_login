@@ -21,53 +21,99 @@ class _BillSectionState extends State<BillSection> {
     return ResponsiveBuilder(
       builder: (_, sizingInformation) {
         return Container(
-          width: sizingInformation.screenSize.width * 0.3,
+          width: sizingInformation.screenSize.width * 0.35,
           child: Column(
             children: [
               Container(
-                  height: sizingInformation.screenSize.height * 0.05,
-                  child: Text("Checkout")),
+                height: sizingInformation.screenSize.height * 0.05,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      "Checkout",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ),
+              ),
               SingleChildScrollView(
                 child: Container(
                   height: sizingInformation.screenSize.height * 0.6,
                   child: BlocBuilder<CartItemBloc, CartItemState>(
                     builder: (context, state) {
-                      print("cart state is $state");
                       if (state is DisplayProductErrorState) {
                         return Container();
                       } else if (state is CartItemLoadedState) {
-                        return DataTable(
-                          columns: [
-                            DataColumn(label: Text('Name')),
-                            DataColumn(label: Text('Quantity')),
-                            DataColumn(label: Text('Price')),
-                          ],
-                          rows: state.cartDto.selectedProducts
-                              .map(
-                                ((element) => DataRow(
-                                      cells: [
-                                        DataCell(Text(element.name)),
-                                        DataCell(
-                                          Row(
-                                            children: [
-                                              Icon(AntDesign.minuscircleo),
-                                              SizedBox(
-                                                width: 4,
-                                              ),
-                                              SizedBox(
-                                                width: 4,
-                                              ),
-                                              Icon(AntDesign.pluscircleo),
-                                            ],
+                        if (state.cartDto.selectedProducts.isEmpty) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Center(
+                              child: Text(
+                                "No items added.",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                            ),
+                          );
+                        } else {
+                          return DataTable(
+                            columns: [
+                              DataColumn(label: Text('Name')),
+                              DataColumn(label: Text('Quantity')),
+                              DataColumn(label: Text('Price (AUD)')),
+                            ],
+                            rows: state.cartDto.selectedProducts
+                                .map(
+                                  ((element) => DataRow(
+                                        cells: [
+                                          DataCell(Text(element.product.name)),
+                                          DataCell(
+                                            Row(
+                                              children: [
+                                                IconButton(
+                                                  icon: Icon(
+                                                      AntDesign.minuscircleo),
+                                                  onPressed: () {
+                                                    BlocProvider.of<
+                                                                CartItemBloc>(
+                                                            context)
+                                                        .add(
+                                                            DecrementQuantityEvent(
+                                                                product: element
+                                                                    .product));
+                                                  },
+                                                ),
+                                                SizedBox(
+                                                  width: 4,
+                                                ),
+                                                Text(element.quantity
+                                                    .toString()),
+                                                SizedBox(
+                                                  width: 4,
+                                                ),
+                                                IconButton(
+                                                  icon: Icon(
+                                                      AntDesign.pluscircleo),
+                                                  color: Colors.green,
+                                                  onPressed: () {
+                                                    BlocProvider.of<
+                                                                CartItemBloc>(
+                                                            context)
+                                                        .add(
+                                                            IncrementQuantityEvent(
+                                                                product: element
+                                                                    .product));
+                                                  },
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                        DataCell(
-                                            Text(element.price.toString())),
-                                      ],
-                                    )),
-                              )
-                              .toList(),
-                        );
+                                          DataCell(Text(element.totalPrice)),
+                                        ],
+                                      )),
+                                )
+                                .toList(),
+                          );
+                        }
                       } else {
                         return Container();
                       }
@@ -78,29 +124,58 @@ class _BillSectionState extends State<BillSection> {
               BlocBuilder<CartItemBloc, CartItemState>(
                 builder: (context, state) {
                   if (state is CartItemLoadedState) {
-                    return Container(
-                      height: sizingInformation.screenSize.height * 0.1,
-                      child: Column(
+                    if (state.cartDto.totalPrice == 0) {
+                      return Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Total"),
-                              Text(state.cartDto.totalPrice.toString()),
-                            ],
+                          Container(
+                            height: sizingInformation.screenSize.height * 0.15,
+                          ),
+                          RaisedButton(
+                            onPressed: () {},
+                            child: Text("Pay"),
+                            color: Colors.grey,
                           ),
                         ],
-                      ),
-                    );
+                      );
+                    } else {
+                      return Column(
+                        children: [
+                          Container(
+                            height: sizingInformation.screenSize.height * 0.15,
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text("Total"),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(state.cartDto.totalPrice
+                                          .toStringAsFixed(2)),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          RaisedButton(
+                            onPressed: () {},
+                            child: Text("Pay (\$" +
+                                state.cartDto.totalPrice.toStringAsFixed(2) +
+                                ")"),
+                          ),
+                        ],
+                      );
+                    }
                   } else {
                     return Container();
                   }
                 },
               ),
-              RaisedButton(
-                onPressed: () {},
-                child: Text("Pay (\$498.00)"),
-              )
             ],
           ),
         );

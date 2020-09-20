@@ -1,6 +1,7 @@
 import 'package:barahi/features/cart/presentation/bloc/cart_item_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_bloc.dart';
 import 'package:barahi/features/homepage/presentation/bloc/display_product_state.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/item_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,50 +25,14 @@ class DisplayBurgersTab extends StatelessWidget {
                 child: GridView.count(
                   controller: verticalScrollController,
                   crossAxisCount: 5,
-                  crossAxisSpacing: 10.0,
-                  mainAxisSpacing: 10.0,
+                  crossAxisSpacing: 4.0,
+                  mainAxisSpacing: 4.0,
                   shrinkWrap: true,
                   children: List.generate(
                     state.productDto.burgers.length,
                     (index) {
-                      return InkWell(
-                        onTap: () {
-                          BlocProvider.of<CartItemBloc>(context).add(
-                              AddProductEvent(
-                                  product:
-                                      state.productDto.popularProducts[index]));
-                        },
-                        child: Card(
-                          child: Container(
-                            height: sizingInformation.screenSize.height * 0.25,
-                            width: sizingInformation.screenSize.height * 0.25,
-                            decoration: new BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                            ),
-                            child: Column(
-                              children: [
-                                Container(
-                                  height: sizingInformation.screenSize.height *
-                                      0.12,
-                                  width: sizingInformation.screenSize.height *
-                                      0.12,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Image.asset(
-                                      state.productDto.burgers[index].image,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Text(state.productDto.burgers[index].name),
-                                Text(state.productDto.burgers[index].price
-                                    .toString()),
-                              ],
-                            ),
-                          ),
-                        ),
+                      return ItemCard(
+                        product: state.productDto.burgers[index],
                       );
                     },
                   ),

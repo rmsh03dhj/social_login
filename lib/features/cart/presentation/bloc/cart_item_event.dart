@@ -35,7 +35,7 @@ class DecrementQuantityEvent extends CartItemEvent {
 
 @immutable
 class RemoveProductEvent extends CartItemEvent {
-  final Product item;
+  final Product product;
 
-  RemoveProductEvent({this.item});
+  RemoveProductEvent({this.product});
 }

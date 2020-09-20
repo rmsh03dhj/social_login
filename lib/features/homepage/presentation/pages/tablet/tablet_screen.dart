@@ -9,6 +9,7 @@ import 'package:barahi/features/homepage/presentation/pages/tablet/display_coffe
 import 'package:barahi/features/homepage/presentation/pages/tablet/display_deserts_tab.dart';
 import 'package:barahi/features/homepage/presentation/pages/tablet/display_drinks_tab.dart';
 import 'package:barahi/features/homepage/presentation/pages/tablet/display_pies_tab.dart';
+import 'package:barahi/features/homepage/presentation/pages/tablet/item_card.dart';
 import 'package:barahi/service_locator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -58,14 +59,24 @@ class _TabletScreenState extends State<TabletScreen>
               children: [
                 ///left side
                 Container(
-                  width: sizingInformation.screenSize.width * 0.7,
-                  color: Colors.green,
+                  width: sizingInformation.screenSize.width * 0.65,
                   child: Column(
                     children: [
                       ///top banner
                       Container(
-                        height: sizingInformation.screenSize.height * 0.25,
-                        color: Colors.greenAccent,
+                        height: sizingInformation.screenSize.height * 0.05,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text(
+                              "Popular Items",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: sizingInformation.screenSize.height * 0.20,
                         child: BlocBuilder<DisplayProductBloc,
                             DisplayProductState>(
                           builder: (context, state) {
@@ -79,54 +90,9 @@ class _TabletScreenState extends State<TabletScreen>
                                   itemCount:
                                       state.productDto.popularProducts.length,
                                   itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        BlocProvider.of<CartItemBloc>(context)
-                                            .add(AddProductEvent(
-                                                product: state.productDto
-                                                    .popularProducts[index]));
-                                      },
-                                      child: Card(
-                                        child: Container(
-                                          height: sizingInformation
-                                                  .screenSize.height *
-                                              0.25,
-                                          width: sizingInformation
-                                                  .screenSize.height *
-                                              0.25,
-                                          decoration: new BoxDecoration(
-                                            shape: BoxShape.rectangle,
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(16.0)),
-                                          ),
-                                          child: Column(children: [
-                                            Container(
-                                              height: sizingInformation
-                                                      .screenSize.height *
-                                                  0.18,
-                                              width: sizingInformation
-                                                      .screenSize.height *
-                                                  0.18,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Image.asset(
-                                                  state
-                                                      .productDto
-                                                      .popularProducts[index]
-                                                      .image,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ),
-                                            Text(state.productDto
-                                                .popularProducts[index].name),
-                                            Text(state.productDto
-                                                .popularProducts[index].price
-                                                .toString()),
-                                          ]),
-                                        ),
-                                      ),
+                                    return ItemCard(
+                                      product: state
+                                          .productDto.popularProducts[index],
                                     );
                                   },
                                 ),
@@ -153,7 +119,6 @@ class _TabletScreenState extends State<TabletScreen>
                             Container(
                               height:
                                   sizingInformation.screenSize.height * 0.55,
-                              color: Colors.grey,
                               child: TabBarView(
                                 controller: _tabController,
                                 children: [
@@ -180,8 +145,6 @@ class _TabletScreenState extends State<TabletScreen>
                                   Tab(icon: new Text("Drinks")),
                                   Tab(icon: new Text("Juice")),
                                   Tab(icon: new Text("Pies")),
-                                  // Tab(icon: new Text("Drinks")),
-                                  // Tab(icon: new Text("Fast food")),
                                 ],
                               ),
                             )

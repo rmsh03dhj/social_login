@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
+import 'item_card.dart';
+
 class DisplayJuicesTab extends StatelessWidget {
   final ScrollController verticalScrollController = ScrollController();
 
@@ -30,43 +32,7 @@ class DisplayJuicesTab extends StatelessWidget {
                   children: List.generate(
                     state.productDto.juices.length,
                     (index) {
-                      return InkWell(
-                        onTap: () {
-                          BlocProvider.of<CartItemBloc>(context).add(
-                              AddProductEvent(
-                                  product:
-                                      state.productDto.popularProducts[index]));
-                        },
-                        child: Card(
-                          child: Container(
-                            height: sizingInformation.screenSize.height * 0.25,
-                            width: sizingInformation.screenSize.height * 0.25,
-                            decoration: new BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(8.0)),
-                            ),
-                            child: Column(children: [
-                              Container(
-                                height:
-                                    sizingInformation.screenSize.height * 0.12,
-                                width:
-                                    sizingInformation.screenSize.height * 0.12,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Image.asset(
-                                    state.productDto.juices[index].image,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                              ),
-                              Text(state.productDto.juices[index].name),
-                              Text(state.productDto.juices[index].price
-                                  .toString()),
-                            ]),
-                          ),
-                        ),
-                      );
+                      return ItemCard(product: state.productDto.juices[index],);
                     },
                   ),
                 ),
